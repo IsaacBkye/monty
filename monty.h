@@ -1,6 +1,6 @@
 #ifndef MONTY_H
 #define MONTY_H
-
+#define _POSIX_C_SOURCE 200809L
 #include <stdio.h>
 #include <stddef.h>
 #include <string.h>
@@ -10,6 +10,8 @@
 #include <fcntl.h>
 #include <stdlib.h>
 
+#define delim "\n\r\t "
+#define UNUSED(x) (void)(x)
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -74,7 +76,4 @@ int _token(char *str);
 int _checkVal(char *str);
 int _listLen(stack_t **h);
 int _newlineCheck(char *str);
-#define delim "\n\r\t "
-#define UNUSED(x) (void)(x)
-
 #endif

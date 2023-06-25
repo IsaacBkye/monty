@@ -1,5 +1,5 @@
 #include "monty.h"
-#include <stdlib.h>
+#include <stdio.h>
 va_t gloVal;
 /**
  * main - monty interpreter
@@ -12,9 +12,10 @@ int main(int argc, char **argv)
 	FILE *fp;
 	stack_t *head = NULL;
 	int token_ret = 0;
-	char buffer[256];
+	ssize_t read = 0;
+	size_t len = 0;
 
-	gloVal.lineptr = buffer;
+	gloVal.lineptr = NULL;
 	gloVal.line_number = 0;
 	if (argc != 2)
 	{
@@ -27,10 +28,10 @@ int main(int argc, char **argv)
 		fprintf(stdout, "Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
-	while (fgets(buffer, 256, fp) != NULL)
+	while ((read = getline(&(gloVal.lineptr), &len, fp) != -1))
 	{
 		gloVal.line_number++;
-		token_ret = _token(buffer);
+		token_ret = _token(gloVal.lineptr);
 		if (token_ret != -1)
 		{
 			_find(&head);
